@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { IoMdClose } from "react-icons/io";
 import productCategory from '../helpers/productCategory';
 import { MdDriveFolderUpload } from "react-icons/md";
-// import uploadImage from '../helpers/uploadImage';
+import uploadImage from '../helpers/uploadImage';
 
 const UploadProduct = ({
     onClose
@@ -17,7 +17,7 @@ const UploadProduct = ({
         sellingPrice: "",
     })
 
-    const [uploadProductImageInput, setProductImageInput]=useState("")
+    const [uploadProductImageInput, setUploadProductImageInput]=useState("")
 
     const handleOnChange=(e)=>{
 
@@ -25,10 +25,15 @@ const UploadProduct = ({
 
     const handleUploadImage=async(e)=>{
         const file=e.target.files[0];
-        setProductImageInput(file.name)
+        setUploadProductImageInput(file.name)
         console.log("file",file) 
-        // const uploadImageCloudary = await uploadImage(file)
-        // console.log("upload Image at Cloudary",uploadImageCloudary)
+        const uploadImageCloudary = await uploadImage(file)
+        setProductDetails((prev)=>({
+            ...prev,
+            productImage: [...prev.productImage, uploadImageCloudary.url]
+        }))
+
+        console.log("upload Image at Cloudary",uploadImageCloudary.url)
     }
   return (
     <div className='fixed bg-slate-200 bg-opacity-50 w-full h-full top-0 left-0 right-0 bottom-0 flex justify-center items-center'>
@@ -79,8 +84,26 @@ const UploadProduct = ({
                 </div>
             </label>
             <div>
-                <img src="" width={80} height={80} className='bg-slate-100 border' />
+                {
+                    productDetails?.productImage[0] ? (
+                        <div className='flex items-center gap-2'>   
+                        {
+                            productDetails.productImage.map(el=>{
+                                return (
+                                    <img src={el} alt='el' width={80} height={80} className='bg-slate-100 border ml-2' />
+                                )
+                            })
+
+                        }
+                        </div>
+                    ) : (
+                        <p className='text-red-600 test-xs '>*Please upload product image</p>
+                    )
+                }
             </div>
+
+            <button className='px-3 py-1 bg-red-600 text-white mb-10 hover:bg-red-700 rounded-full'>Upload Product</button>
+
         </form>
 
       </div>
