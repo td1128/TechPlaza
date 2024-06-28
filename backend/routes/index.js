@@ -6,6 +6,7 @@ import authToken from "../middleware/authToken.js";
 import logout from "../controllers/logout.controller.js";
 import allUsers from "../controllers/allUsers.controller.js";
 import updateUser from "../controllers/updateUser.controller.js";
+import uploadProduct from "../controllers/uploadProduct.controller.js";
 
 const router=express.Router();
 
@@ -17,6 +18,8 @@ router.get("/logout",logout)
 //admin panel
 router.get("/all-user",authToken,allUsers)
 router.post("/update-user",authToken,updateUser)
+
+router.post("/upload-product",authToken,uploadProduct)
 
 export default router
 
