@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 
 const UploadProduct = ({
-    onClose
+    onClose,fetchProduct
 }) => {
     const [productDetails, setProductDetails] = useState({
         productName: "",
@@ -78,6 +78,7 @@ const UploadProduct = ({
         if(dataApi.success){
             toast.success(dataApi.message);
             onClose()
+            fetchProduct()
         }
         if(dataApi.error){
             toast.error(dataApi.message)
