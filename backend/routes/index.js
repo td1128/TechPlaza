@@ -1,14 +1,14 @@
 import express from "express";
-import signUp from "../controllers/signup.controller.js";
-import login from "../controllers/login.controller.js";
-import userDetails from "../controllers/userDetails.controllers.js";
+import signUp from "../controllers/user/signup.controller.js";
+import login from "../controllers/user/login.controller.js";
+import userDetails from "../controllers/user/userDetails.controllers.js";
 import authToken from "../middleware/authToken.js";
-import logout from "../controllers/logout.controller.js";
-import allUsers from "../controllers/allUsers.controller.js";
-import updateUser from "../controllers/updateUser.controller.js";
-import uploadProduct from "../controllers/uploadProduct.controller.js";
-import getProduct from "../controllers/getProduct.controller.js";
-import updateProduct from "../controllers/updateProduct.controller.js";
+import logout from "../controllers/user/logout.controller.js";
+import allUsers from "../controllers/user/allUsers.controller.js";
+import updateUser from "../controllers/user/updateUser.controller.js";
+import uploadProduct from "../controllers/product/uploadProduct.controller.js";
+import getProduct from "../controllers/product/getProduct.controller.js";
+import updateProduct from "../controllers/product/updateProduct.controller.js";
 
 const router=express.Router();
 

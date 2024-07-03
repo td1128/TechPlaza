@@ -1,5 +1,5 @@
-import permission from "../helpers/permission.js";
-import productModel from "../models/productModel.js"
+import permission from "../../helpers/permission.js";
+import productModel from "../../models/productModel.js"
 
 const uploadProduct=async(req,res)=>{
     try {
