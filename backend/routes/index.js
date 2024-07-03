@@ -9,6 +9,7 @@ import updateUser from "../controllers/user/updateUser.controller.js";
 import uploadProduct from "../controllers/product/uploadProduct.controller.js";
 import getProduct from "../controllers/product/getProduct.controller.js";
 import updateProduct from "../controllers/product/updateProduct.controller.js";
+import getCategoryProduct from "../controllers/product/getCategoryProduct.controller.js";
 
 const router=express.Router();
 
@@ -24,6 +25,7 @@ router.post("/update-user",authToken,updateUser)
 router.post("/upload-product",authToken,uploadProduct)
 router.get("/get-product",getProduct)
 router.post("/update-product",authToken,updateProduct)
+router.get("/get-category",getCategoryProduct)
 
 export default router
 
