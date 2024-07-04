@@ -4,18 +4,14 @@ import displayINRCurrency from '../helpers/displayCurrency'
 
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
-import { Link } from 'react-router-dom';
 import addToCart from '../helpers/addToCart';
+import { Link } from 'react-router-dom';
 
-function HorizantalCardProduct({ category, heading }) {
+function CategoryWiseProductDisplay({ category, heading }) {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
 
     const loadingList = new Array(13).fill(null)
-
-    const [scroll,setScroll]=useState(0)
-
-    const scrollElement =useRef()
 
     const fetchData = async () => {
         setLoading(true)
@@ -27,36 +23,28 @@ function HorizantalCardProduct({ category, heading }) {
         fetchData()
     }, [])
 
-    const scrollRight=()=>{
-        scrollElement.current.scrollLeft+=300
-    }
 
-    const scrollLeft=()=>{
-        scrollElement.current.scrollLeft-=300
-    }
 
     return (
         <div className='container mx-auto px-4 my-2 relative'>
             <h2 className='text-xl font-semibold p-3'>{heading}</h2>
-            <div className='flex items-center gap-4 overflow-scroll scrollbar-none transition-all' ref={scrollElement}>
-                <button className='bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block' onClick={scrollLeft}><FaAngleLeft /></button>
-                <button className='bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block' onClick={scrollRight}><FaAngleRight /></button>
+            <div className='grid grid-cols-[repeat(auto-fit,minmax(300px,320px))] justify-between overflow-x-scroll scrollbar-none transition-all'>
                 {
                     loading ? (
                         loadingList.map((product, index) => {
                             return (
-                                <div className='w-full min-w-[300px] md:min-w-[340px] max-w-[300px] md:max-w-[340px] h-36 bg-white rounded-sm shadow flex'>
-                                    <div className='bg-slate-200 h-full p-2 min-w-[120px] md:min-w-[145px] animate-pulse' >
-                                    
+                                <div className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow '>
+                                    <div className='bg-slate-200 p-2 h-48 min-w-[280px] md:min-w-[145px] flex justify-center items-center animate-pulse' >
+                                        
                                     </div>
-                                    <div className='p-3 grid w-full gap-2'>
-                                        <h2 className='font-medium text-base md:text-medium text-ellipsis line-clamp-1 text-black bg-slate-200 animate-pulse p-1'></h2>
-                                        <p className='capitalize text-slate-600 p-1 bg-slate-200 animate-pulse'></p>
+                                    <div className='p-3 grid gap-3'>
+                                        <h2 className='font-medium text-base md:text-medium text-ellipsis line-clamp-1 text-black bg-slate-200 animate-pulse py-2'></h2>
+                                        <p className='capitalize text-slate-600 bg-slate-200 animate-pulse py-2'></p>
                                         <div className='flex gap-3 items-center w-full'>
-                                            <p className='text-red-600 font-medium p-1 bg-slate-200 w-full animate-pulse'></p>
-                                            <p className='text-slate-600 line-through text-sm p-1 bg-slate-200 w-full animate-pulse'></p>
+                                            <p className='text-red-600 font-medium bg-slate-200 animate-pulse py-2 w-full'></p>
+                                            <p className='text-slate-600 line-through text-sm bg-slate-200 animate-pulse py-2 w-full'></p>
                                         </div>
-                                        <button className=' text-white px-1 py-0.5 rounded-full hover:scale-105 transition-all text-sm w-full bg-slate-200 animate-pulse'></button>
+                                        <button className=' text-white px-3 py-2 rounded-full hover:scale-105 transition-all text-sm bg-slate-200 animate-pulse'></button>
                                     </div>
                                 </div>
                             )
@@ -64,11 +52,11 @@ function HorizantalCardProduct({ category, heading }) {
                     ) : (
                         data.map((product, index) => {
                             return (
-                                <Link to={"/product/"+product?._id} className='w-full min-w-[300px] md:min-w-[340px] max-w-[300px] md:max-w-[340px] h-36 bg-white rounded-sm shadow flex'>
-                                    <div className='bg-slate-200 h-full p-2 min-w-[120px] md:min-w-[145px]' >
-                                        <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-125 transition-all mix-blend-multiply'  />
+                                <Link to={"/product/"+product?._id} className='w-full m-3 min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow '>
+                                    <div className='bg-slate-200 p-2 h-48 min-w-[280px] md:min-w-[145px] flex justify-center items-center' >
+                                        <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'  />
                                     </div>
-                                    <div className='p-3 grid'>
+                                    <div className='p-3 grid gap-3'>
                                         <h2 className='font-medium text-base md:text-medium text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>
                                         <p className='capitalize text-slate-600'>{product?.category}</p>
                                         <div className='flex gap-3 items-center w-full'>
@@ -91,4 +79,5 @@ function HorizantalCardProduct({ category, heading }) {
     )
 }
 
-export default HorizantalCardProduct
+export default CategoryWiseProductDisplay
+
