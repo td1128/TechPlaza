@@ -1,7 +1,7 @@
 import productModel from "../../models/productModel.js"
 
 
-const getCategoryProduct= async(req,res)=>{
+const getCategoryWiseSingleProduct= async(req,res)=>{
     try {
         const productCategory = await productModel.distinct("category")
         // console.log(productCategory)
@@ -31,4 +31,4 @@ const getCategoryProduct= async(req,res)=>{
     }
 }
 
-export default getCategoryProduct;
+export default getCategoryWiseSingleProduct;

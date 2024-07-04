@@ -36,7 +36,7 @@ function App() {
       }} >
         <ToastContainer position="top-right" autoClose={5000} />
         <Header/>
-        <main className='min-h-[calc(100vh-120px)]'>
+        <main className='min-h-[calc(100vh-120px)] pt-16'>
           <Outlet/>
         </main>
         <Footer/>
