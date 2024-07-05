@@ -12,7 +12,9 @@ import { useDispatch } from 'react-redux'
 import { setUserDetails } from './features/userSlice.js'
 
 function App() {
+  const [cartProductCount,setCartProductCount]=useState(0)
   const dispatch=useDispatch();
+  
   const fetchUserDetails=async()=>{
     const dataResponse=await fetch(SummaryAPI.userDetails.url,{
       method:SummaryAPI.userDetails.method,
@@ -24,17 +26,31 @@ function App() {
       dispatch(setUserDetails(dataApi.data))
     }
   }
+  
+  const fetchUserAddToCart = async() => {
+    const dataResponse=await fetch(SummaryAPI.countAddToCartProduct.url,{
+      method:SummaryAPI.countAddToCartProduct.method,
+      credentials:"include",
+    })
+    const dataApi= await dataResponse.json();
+    console.log("data :",dataApi);
+    setCartProductCount(dataApi?.data)
+  }
+  
   useEffect(()=>{
     // user details
     fetchUserDetails()
+    fetchUserAddToCart()
   },[])
 
   return (
     <>
       <Context.Provider value={{
-        fetchUserDetails // fetch user details for view details in every page
+        fetchUserDetails, // fetch user details for view details in every page
+        cartProductCount, //current user add to cart count
+        fetchUserAddToCart 
       }} >
-        <ToastContainer position="top-right" autoClose={5000} />
+        <ToastContainer position="top-center" autoClose={5000} />
         <Header/>
         <main className='min-h-[calc(100vh-120px)] pt-16'>
           <Outlet/>

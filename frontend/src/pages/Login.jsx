@@ -48,6 +48,7 @@ const Login = () => {
             toast.success(dataApi.message);
             navigate('/');
             generalContext.fetchUserDetails()
+            generalContext.fetchUserAddtoCart()
         }
         if(dataApi.error){
             toast.error(dataApi.message);

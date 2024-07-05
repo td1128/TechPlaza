@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import LogoIcon from './LogoIcon'
 // import { CiSearch } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
@@ -10,12 +10,15 @@ import SummaryAPI from '../common';
 import { toast } from 'react-toastify';
 import { setUserDetails } from '../features/userSlice.js';
 import ROLE from '../common/role.js';
+import Context from '../context/index.js';
 
 const Header = () => {
   const user=useSelector(state=>state?.user?.user)
   // console.log('user details redux', user)
 
   const [menuDisplay,setMenuDisplay] = useState(false)
+
+  const context=useContext(Context)
 
   const dispatch=useDispatch();
 
@@ -81,12 +84,16 @@ const Header = () => {
               )
             }
           </div>
-          <div className='text-2xl cursor-pointer relative'>
-            <span><FaShoppingCart /></span>
-            <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3 '>
-              <p className='text-xs'>0</p>
-            </div>
-          </div>
+            {
+              user?._id && (
+                <div className='text-2xl cursor-pointer relative'>
+                  <span><FaShoppingCart /></span>
+                    <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3 '>
+                      <p className='text-xs'>{context?.cartProductCount}</p>
+                    </div>
+                </div>
+              )
+            }
           <div>
             {
               user ? (
