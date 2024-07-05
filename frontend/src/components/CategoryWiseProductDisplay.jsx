@@ -7,6 +7,7 @@ import { FaAngleRight } from "react-icons/fa";
 import addToCart from '../helpers/addToCart';
 import { Link } from 'react-router-dom';
 import Context from '../context';
+import scrollTop from '../helpers/scrollTop';
 
 function CategoryWiseProductDisplay({ category, heading }) {
     const [data, setData] = useState([])
@@ -60,7 +61,7 @@ function CategoryWiseProductDisplay({ category, heading }) {
                     ) : (
                         data.map((product, index) => {
                             return (
-                                <Link to={"/product/"+product?._id} className='w-full m-3 min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow '>
+                                <Link to={"/product/"+product?._id} className='w-full m-3 min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow ' onClick={scrollTop}>
                                     <div className='bg-slate-200 p-2 h-48 min-w-[280px] md:min-w-[145px] flex justify-center items-center' >
                                         <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'  />
                                     </div>

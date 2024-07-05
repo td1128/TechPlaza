@@ -17,6 +17,7 @@ import countAddToCartProduct from "../controllers/user/countAddToCart.controller
 import addToCartView from "../controllers/user/addToCartView.controller.js";
 import updateAddToCartProduct from "../controllers/user/updateAddToCart.controller.js";
 import deleteAddToCartProduct from "../controllers/user/deleteAddToCartProduct.controller.js";
+import searchProduct from "../controllers/product/searchProduct.controller.js";
 
 const router=express.Router();
 
@@ -29,12 +30,15 @@ router.get("/logout",logout)
 router.get("/all-user",authToken,allUsers)
 router.post("/update-user",authToken,updateUser)
 
+
+//product routes
 router.post("/upload-product",authToken,uploadProduct)
 router.get("/get-product",getProduct)
 router.post("/update-product",authToken,updateProduct)
 router.get("/get-category",getCategoryWiseSingleProduct)
 router.post("/category-product",getCategoryWiseProduct)
 router.post("/product-details",getProductDetails)
+router.get("/search",searchProduct)
 
 //user add to cart
 router.post("/addtocart",authToken,addToCartProduct)

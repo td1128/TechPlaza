@@ -118,14 +118,14 @@ const Cart = () => {
                         loading ? (
                             loadingCart.map((el, index) => {
                                 return (
-                                    <div key={el + "AddToCartLoading"} className='w-full bg-slate-200 h-32 my-1 border-slate-300 animate-pulse rounded'>
+                                    <div key={el + "AddToCartLoading"} className='w-full mb-4 bg-slate-200 h-32 my-1 border-slate-300 animate-pulse rounded'>
                                     </div>
                                 )
                             })
                         ) : (
                             data.map((product,index) =>{
                                 return(
-                                    <div key={product?._id + "AddToCartLoading"} className='w-full bg-white h-32 my-1 border-slate-300 rounded grid grid-cols-[128px,1fr]'>
+                                    <div key={product?._id + "AddToCartLoading"} className='w-full mb-4 bg-white h-32 my-1 border-slate-300 rounded grid grid-cols-[128px,1fr]'>
                                         <div className='w-32 h-32 bg-slate-200'>
                                             <img src={product?.productId?.productImage[0]} className='w-full h-full object-scale-down mix-blend-multiply' />
                                         </div>
