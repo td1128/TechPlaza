@@ -18,6 +18,7 @@ import addToCartView from "../controllers/user/addToCartView.controller.js";
 import updateAddToCartProduct from "../controllers/user/updateAddToCart.controller.js";
 import deleteAddToCartProduct from "../controllers/user/deleteAddToCartProduct.controller.js";
 import searchProduct from "../controllers/product/searchProduct.controller.js";
+import filterProductController from "../controllers/product/filterProduct.controller.js";
 
 const router=express.Router();
 
@@ -39,6 +40,7 @@ router.get("/get-category",getCategoryWiseSingleProduct)
 router.post("/category-product",getCategoryWiseProduct)
 router.post("/product-details",getProductDetails)
 router.get("/search",searchProduct)
+router.post("/filter-product",filterProductController)
 
 //user add to cart
 router.post("/addtocart",authToken,addToCartProduct)

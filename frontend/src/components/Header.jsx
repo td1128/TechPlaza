@@ -24,7 +24,13 @@ const Header = () => {
   const dispatch=useDispatch();
 
   const searchInput=useLocation()
+  const urlSearch=new URLSearchParams(searchInput?.search)
+  const searchQuery=urlSearch.getAll("q")
+
+  // const [search,setSearch] = useState(searchQuery)
   const [search,setSearch] = useState(searchInput?.search?.split("=")[1])
+
+  console.log("search",searchQuery)
 
   // console.log("search input",searchInput?.search?.split("=")[1])
 
@@ -38,6 +44,7 @@ const Header = () => {
       toast.success(dataApi.message)
       // after logout clearing the redux store
       dispatch(setUserDetails(null));
+      navigate("/")
     }
     if(dataApi.error){
       toast.error(dataApi.message);

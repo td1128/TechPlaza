@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router'
 import SummaryAPI from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
 import displayINRCurrency from '../helpers/displayCurrency';
 import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay';
+import addToCart from '../helpers/addToCart';
+import Context from '../context';
 
 
 const ProductDetails = () => {
@@ -28,7 +30,10 @@ const ProductDetails = () => {
     })
     const [zoomImage,setZoomImage]=useState(false)
 
+    const { fetchUserAddToCart } = useContext(Context)
+
     const params = useParams()
+    const navigate =useNavigate()
     // console.log(params.id)
 
     const fetchProductDetails = async () => {
@@ -71,6 +76,17 @@ const ProductDetails = () => {
         setZoomImage(false)
     }
 
+    const handleAddToCart =async(e,id)=>{
+        await addToCart(e,id)
+        fetchUserAddToCart()
+    }
+
+    const handleBuyPrduct=async(e,id)=>{
+        await addToCart(e,id)
+        fetchUserAddToCart()
+        navigate("/cart")
+    }
+
     return (
         <div className='container mx-auto p-4'>
 
@@ -103,7 +119,7 @@ const ProductDetails = () => {
                                     {
                                         productImageList.map((el, index) => {
                                             return (
-                                                <div className='h-20 w-20 bg-slate-200 rounded animate-pulse' key={"loadingImage"}>
+                                                <div className='h-20 w-20 bg-slate-200 rounded animate-pulse' key={"loadingImage"+index}>
 
                                                 </div>
                                             )
@@ -168,8 +184,8 @@ const ProductDetails = () => {
                                 <p className='text-slate-400 line-through'>{displayINRCurrency(data?.price)}</p>
                             </div>
                             <div className='flex items-center gap-3 my-2'>
-                                <button className='border-2 border-red-600 rounded-full px-3 py-1 min-w-[100px] text-red-600 font-medium hover:bg-red-600 hover:text-white'>Buy</button>
-                                <button className='border-2 border-red-600 rounded-full px-3 py-1 min-w-[100px] text-white font-medium bg-red-600 hover:bg-white hover:text-red-600'>Add to Cart</button>
+                                <button className='border-2 border-red-600 rounded-full px-3 py-1 min-w-[100px] text-red-600 font-medium  hover:bg-red-600 hover:text-white' onClick={(e)=>handleBuyPrduct(e,data?._id)}>Buy</button>
+                                <button className='border-2 border-red-600 rounded-full px-3 py-1 min-w-[100px] text-white font-medium bg-red-600 hover:bg-white hover:text-red-600' onClick={(e)=>handleAddToCart(e,data?._id)}>Add to Cart</button>
                             </div>
 
                             <div>
