@@ -14,6 +14,7 @@ import Cart from "../pages/Cart.jsx";
 import SearchProduct from "../pages/SearchProduct.jsx";
 import Success from "../pages/Success.jsx";
 import Cancel from "../pages/Cancel.jsx";
+import OrderPage from "../pages/OrderPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
             {
                 path : "search",
                 element:<SearchProduct/>
+            },
+            {
+                path: "order",
+                element: <OrderPage/>
             },
             {
                 path: "admin-panel",
