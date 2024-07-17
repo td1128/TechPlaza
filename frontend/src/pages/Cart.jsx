@@ -4,6 +4,8 @@ import Context from '../context'
 import displayINRCurrency from '../helpers/displayCurrency'
 import { MdDelete } from "react-icons/md";
 
+import {loadStripe} from '@stripe/stripe-js';
+
 
 const Cart = () => {
     const [data, setData] = useState([])
@@ -108,12 +110,50 @@ const Cart = () => {
     const totalQty=data.reduce((previousValue,currentValue)=>previousValue+currentValue.quantity,0)
     const totalPrice=data.reduce((previousValue,currentValue)=>previousValue+(currentValue.quantity*currentValue?.productId?.sellingPrice),0)
 
+    // 
+    const handlePayment = async () => {
+        try {
+
+            // console.log("public key",import.meta.env.REACT_APP_STRIPE_PUBLIC_KEY);
+
+            // const stripePromise = loadStripe(import.meta.env.REACT_APP_STRIPE_PUBLIC_KEY);
+            const stripePromise = await loadStripe('pk_test_51PcVTaRq1rVPtupBeZSCmOqkvgNerLE3ODTtOD3h2q2E4JEY2dnh7BrJJyaBA2kcqXEUiZs4G2kxT0aSJWUEHDz2004thERUa7');
+            const response = await fetch(SummaryAPI.payment.url, {
+                method: SummaryAPI.payment.method,
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    cartItems: data.map(item => ({
+                        productId: item.productId._id,
+                        quantity: item.quantity,
+                        sellingPrice: item.productId.sellingPrice,
+                        productName: item.productId.productName,
+                        productImage: item.productId.productImage[0]
+                    }))
+                })
+            });
+    
+            const dataApi = await response.json();
+            console.log("payment response", dataApi);
+    
+            if(dataApi?.id){
+                stripePromise.redirectToCheckout({sessionId: dataApi.id})
+            }
+
+        } catch (error) {
+            console.error("Payment Error:", error);
+        }
+    };
+    
+
     return (
         <div className='container mx-auto'>
             <div className='text-center text-lg my-3'>
                 {
                     data.length === 0 && !loading && (
-                        <p className='bg-white py-5'>No data</p>
+                        <p className='bg-white py-5 font-bold text-3xl text-red-600'>Nothing is added to Cart....</p>
                     )
                 }
             </div>
@@ -163,31 +203,35 @@ const Cart = () => {
                 </div>
 
                 {/***summary  */}
-                <div className='mt-5 lg:mt-0 w-full max-w-sm'>
-                        {
-                            loading ? (
-                            <div className='h-36 bg-slate-200 border border-slate-300 animate-pulse'>
-                                
-                            </div>
-                            ) : (
-                                <div className='h-36 bg-white'>
-                                    <h1 className='text-white bg-red-600 px-6 py-1 text-xl'>Summary :</h1>
-                                    <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
-                                        <p>Quantity :</p>
-                                        <p>{totalQty}</p>
+                {
+                    data[0] && (
+                        <div className='mt-5 lg:mt-0 w-full max-w-sm'>
+                                {
+                                    loading ? (
+                                    <div className='h-36 bg-slate-200 border border-slate-300 animate-pulse'>
+                                        
                                     </div>
+                                    ) : (
+                                        <div className='h-36 bg-white'>
+                                            <h1 className='text-white bg-red-600 px-6 py-1 text-xl'>Summary :</h1>
+                                            <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                                                <p>Quantity :</p>
+                                                <p>{totalQty}</p>
+                                            </div>
 
-                                    <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
-                                        <p>Total Price :</p>
-                                        <p>{displayINRCurrency(totalPrice)}</p>    
-                                    </div>
+                                            <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                                                <p>Total Price :</p>
+                                                <p>{displayINRCurrency(totalPrice)}</p>    
+                                            </div>
 
-                                    <button className='bg-blue-600 p-2 text-white w-full mt-2'>Pay Now</button>
+                                            <button className='bg-blue-600 p-2 text-white w-full mt-2' onClick={handlePayment}>Pay Now</button>
 
-                                </div>
-                            )
-                        }
-                </div>
+                                        </div>
+                                    )
+                                }
+                        </div>
+                    )
+                }
             </div>
         </div>
     )

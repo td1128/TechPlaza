@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import connectToDB from './config/db.js';
 import router from './routes/index.js';
 
+
 dotenv.config();
 // const router=require('./routes')
 

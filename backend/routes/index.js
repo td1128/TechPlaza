@@ -19,6 +19,7 @@ import updateAddToCartProduct from "../controllers/user/updateAddToCart.controll
 import deleteAddToCartProduct from "../controllers/user/deleteAddToCartProduct.controller.js";
 import searchProduct from "../controllers/product/searchProduct.controller.js";
 import filterProductController from "../controllers/product/filterProduct.controller.js";
+import paymentController from "../controllers/order/payment.controller.js";
 
 const router=express.Router();
 
@@ -48,6 +49,9 @@ router.get("/countAddToCart",authToken,countAddToCartProduct)
 router.get("/veiw-cart-products",authToken,addToCartView)
 router.post("/update-cart-product",authToken,updateAddToCartProduct)
 router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
+
+//payment and order
+router.post("/checkout",authToken,paymentController)
 
 export default router
 
