@@ -14,10 +14,9 @@ async function getLineItems(lineItems){
             const productData={
                 productId: productId,
                 productName: product.name,
-                productImage: product.image,
-                sellingPrice: item.price_data.unit_amount/100,
+                productImage: product.images,
                 quantity: item.quantity,
-                price: item.price_data.unit_amount/100
+                price: item.price.unit_amount/100
             }
 
             ProductItems.push(productData)
@@ -70,7 +69,12 @@ const webhooks=async(request,response)=>{
                     payment_method_type : session.payment_method_types,
                     payment_status : session.payment_status
                 },
-                shipping_options : session.shipping_options,
+                shipping_options : session.shipping_options.map(s=>{
+                    return {
+                        ...s, 
+                        shipping_amount : s.shipping_amount/100
+                    } 
+                }),
                 tatalAmount : session.amount_total/100
             }
 
