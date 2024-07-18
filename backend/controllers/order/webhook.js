@@ -1,4 +1,5 @@
 import stripe from '../../config/stripe.js';
+import addToCartModel from '../../models/cartProductModel.js';
 import orderModel from '../../models/orderModel.js';
 
 // const endpointSecret = import.meta.env.STRIPE_ENDPOINT_WEBHOOK_SECRET_KEY
@@ -19,6 +20,7 @@ async function getLineItems(lineItems){
                 price: item.price.unit_amount/100
             }
 
+            console.log("image",product);
             ProductItems.push(productData)
 
         }
@@ -80,6 +82,11 @@ const webhooks=async(request,response)=>{
 
             const order=await orderModel(orderDetails)
             const saveOrder = await order.save()
+
+            if(saveOrder._id){
+                const deleteCartProduct = await addToCartModel.deleteMany({userId : session.metadata.userId})
+
+            }
 
             break;
             // ... handle other event types

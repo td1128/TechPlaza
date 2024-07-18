@@ -4,7 +4,7 @@ const orderController = async (request,response) => {
     try {
         const userId = request.userId;
 
-        const orderList = await orderModel.find({userId : userId});
+        const orderList = await orderModel.find({userId : userId}).sort({createdAt : -1});
 
         response.json({
             message: "All orders for the user",
