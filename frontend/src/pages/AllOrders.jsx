@@ -21,7 +21,7 @@ const AllOrders = () => {
     },[])
   return (
     <div>
-        <div className='bg-white py-2 px-2 flex justify-center items-center'>
+        <div className='bg-white py-2 px-2 flex justify-center items-center mt-3'>
             <h2 className='text-slate-700 font-bold text-xl '>All Orders</h2>
         </div>
       {

@@ -24,6 +24,9 @@ const OrderPage = () => {
 
   return (
     <div>
+      <div className='bg-white py-2 px-2 flex justify-center items-center m-3'>
+         <h2 className='text-slate-700 font-bold text-xl '>My Orders</h2>
+      </div>
       {
         !data[0] && (
           <p>No Order available</p>
@@ -31,7 +34,6 @@ const OrderPage = () => {
       }
 
       <div className='p-4 w-full max-w-4xl mx-auto'>
-        <h2 className='text-slate-700 font-bold text-xl from-neutral-800'>My Orders : </h2>
         {
           data.map((item, index) => {
             return (
