@@ -22,6 +22,7 @@ import filterProductController from "../controllers/product/filterProduct.contro
 import paymentController from "../controllers/order/payment.controller.js";
 import webhooks from "../controllers/order/webhook.js";
 import orderController from "../controllers/order/order.controller.js";
+import allOrdersController from "../controllers/order/allOrders.controller.js";
 
 const router=express.Router();
 
@@ -33,6 +34,7 @@ router.get("/logout",logout)
 //admin panel
 router.get("/all-user",authToken,allUsers)
 router.post("/update-user",authToken,updateUser)
+router.post("/all-orders",authToken,allOrdersController)
 
 
 //product routes
