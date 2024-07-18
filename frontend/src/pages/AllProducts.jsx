@@ -19,7 +19,7 @@ const AllProducts = () => {
     }else{
       console.log(dataApi.message)
     }
-    console.log(dataApi.data)
+    // console.log(dataApi.data)
   }
 
   useEffect(()=>{

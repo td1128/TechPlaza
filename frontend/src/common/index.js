@@ -33,6 +33,10 @@ const SummaryAPI = {
         url:`${backendDomain}/api/get-product`,
         method:"get"
     },
+    allOrders :{
+        url:`${backendDomain}/api/all-orders`,
+        method:"get"
+    },
     updateProduct:{
         url:`${backendDomain}/api/update-product`,
         method:"post"
